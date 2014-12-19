@@ -130,6 +130,12 @@ module Fallen
     end
   end
   
+  # Restarts the fallen angel
+  def self.restart!
+    stop!
+    start!
+  end
+  
   # Callback method to be run before fallen angel starts
   def before_start; end
 
