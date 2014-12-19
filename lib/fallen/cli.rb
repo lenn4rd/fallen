@@ -16,7 +16,7 @@ module Fallen::CLI
     <<-USAGE
 Fallen introduced command line arguments:
 
-  -D    Daemonize this process
+  -D    Daemonize this process.
   -C    Change directory.
   -P    Path to PID file. Only used in daemonized process.
   -out  Path to redirect STDOUT.

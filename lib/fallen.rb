@@ -5,8 +5,8 @@ module Fallen
   @stdout   = nil
   @stderr   = nil
 
-  # Detachs this fallen angel from current process and runs it in
-  # background
+  # Detaches this fallen angel from the current process and runs it in
+  # the background
   #
   # @note Unless `STDIN`, `STDOUT` or `STDERR` are redirected to a
   #   file, these will be redirected to `/dev/null`
@@ -87,8 +87,8 @@ module Fallen
   # Runs the fallen angel
   #
   # This will set up `INT` & `TERM` signal handlers to stop execution
-  # properly. When this signal handlers are called it will also call
-  # the `stop` callback method and delete the pid file
+  # properly. When one of these signal handlers are called it will also
+  # call the `stop` callback method and delete the pid file.
   def run!
     save_pid_file
     @running = true

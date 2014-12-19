@@ -25,10 +25,10 @@ This will print _Time is on my side... Yes it is.._ every 666 seconds on `STDOUT
 ## Control your daemon
 `Fallen` accepts the following methods:
 
-* `daemonize!`: detaches the process and keep running it on background;
+* `daemonize!`: detaches the process and keeps running it in the background;
 * `chdir!`: changes the current working directory of the process (useful for log and pid files);
-* `pid_file`: allows to indicate a file path where the daemon `PID` will be stored; could be either an absolute path or a relative path to the current working directory (see `chdir!`);
-* `stdout`, `stderr` & `stdin`: redirects the process `STDOUT`, `STDERR` and `STDIN` to either an absolute or relative file path; note that when a process is daemonized by default all these streams are redirected to `/dev/null`.
+* `pid_file`: allows to indicate a file path where the daemon `PID` will be stored; could be either an absolute or a relative path to the current working directory (see `chdir!`);
+* `stdout`, `stderr` & `stdin`: redirect the process `STDOUT`, `STDERR` and `STDIN` to either an absolute or relative file path; note that when a process is daemonized by default all these streams are redirected to `/dev/null`.
 
 For example, the previous example could have the following lines before `Azazel.start!` to store the `PID` and log to a file:
 
