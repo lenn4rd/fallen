@@ -52,7 +52,7 @@ module Azazel
   
   # ...
   
-  def usage
+  def self.usage
     puts "..." # Your usage message
     # Default Fallen usage options
     puts fallen_usage

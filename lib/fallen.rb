@@ -1,9 +1,9 @@
 module Fallen
-  @running = false
-  @pidfile = nil
-  @stdin   = nil
-  @stdout  = nil
-  @stderr  = nil
+  @running  = false
+  @pid_file = nil
+  @stdin    = nil
+  @stdout   = nil
+  @stderr   = nil
 
   # Detachs this fallen angel from current process and runs it in
   # background
@@ -98,7 +98,7 @@ module Fallen
   end
 
   # Handles an interrupt (`SIGINT` or `SIGTERM`) properly as it
-  # deletes the pid file and calles the `stop` method.
+  # deletes the pid file and calls the `stop` method.
   def interrupt
     @running = false
     File.delete @pid_file if @pid_file && File.exists?(@pid_file)
@@ -130,7 +130,7 @@ module Fallen
 
   private
 
-  # Save the falen angel PID to the PID file specified in `pid_file`
+  # Save the fallen angel's PID to the file specified in `pid_file`
   def save_pid_file
     File.open(@pid_file, "w") do |fp|
       fp.write(Process.pid)
