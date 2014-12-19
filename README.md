@@ -22,6 +22,39 @@ Azazel.start!
 
 This will print _Time is on my side... Yes it is.._ every 666 seconds on `STDOUT`. You can stop the daemon by pressing `CTRL+c`.
 
+## Callbacks
+
+`Fallen` includes four callback methods that are executed on starting and stopping the daemon. These are:
+
+* `before_start`
+* `after_start`
+* `before_stop`
+* `after_stop`
+
+Override them in your script to add the desired functionality, like so:
+
+```ruby
+require "fallen"
+
+module Azazel
+  extend Fallen
+  
+  def self.run
+    while running?
+      # Do something
+    end
+  end
+  
+  def self.before_start
+    puts "I'm just getting started!"
+  end
+  
+  def self.before_stop
+    puts "I'm about to stop. Bye!"
+  end
+end
+```
+
 ## Control your daemon
 `Fallen` accepts the following methods:
 

@@ -87,22 +87,25 @@ module Fallen
   # Runs the fallen angel
   #
   # This will set up `INT` & `TERM` signal handlers to stop execution
-  # properly. When one of these signal handlers are called it will also
-  # call the `stop` callback method and delete the pid file.
+  # properly. When one of these signal handlers are called the `interrupt`
+  # method is executed which terminates the process.
   def run!
+    before_start
     save_pid_file
     @running = true
     trap(:INT) { interrupt }
     trap(:TERM) { interrupt }
+    after_start
     run
   end
 
-  # Handles an interrupt (`SIGINT` or `SIGTERM`) properly as it
-  # deletes the pid file and calls the `stop` method.
+  # Handles an interrupt (`SIGINT` or `SIGTERM`) properly. Evokes both
+  # `before_stop` and `after_stop` callbacks and deletes the PID file.
   def interrupt
+    before_stop
     @running = false
     File.delete @pid_file if @pid_file && File.exists?(@pid_file)
-    stop
+    after_stop
   end
 
   # Stops fallen angel execution
@@ -113,8 +116,10 @@ module Fallen
     if @pid_file && File.exists?(@pid_file)
       pid = File.read(@pid_file).strip
       begin
+        before_stop
         Process.kill :INT, pid.to_i
         File.delete @pid_file
+        after_stop
       rescue Errno::ESRCH
         STDERR.puts "No daemon is running with PID #{pid}"
         exit 3
@@ -124,9 +129,18 @@ module Fallen
       exit 1
     end
   end
+  
+  # Callback method to be run before fallen angel starts
+  def before_start; end
 
-  # Callback method to be run when fallen angel stops
-  def stop; end
+  # Callback method to be run after fallen angel has started
+  def after_start; end
+
+  # Callback method to be run before fallen angel stops
+  def before_stop; end
+
+  # Callback method to be run after fallen angel has stopped
+  def after_stop; end
 
   private
 
